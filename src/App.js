@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {connect} from "react-redux";
+import {changeQuestion} from "./actions/change-question";
+import Quiz from "./Quiz/Quiz";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = ({ answerId, questions, onClickChangeQuestion}) => {
+    return (
+        <div className="clear App flex-column">
+            <div className="count-question">
+                <p>Количество вопрос {answerId} из {questions.length}</p>
+            </div>
+            <Quiz/>
+            <div>
+                <button className="change-question" onClick={() => onClickChangeQuestion()}>Следующий вопрос</button>
+            </div>
+        </div>
+    )
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        answerId : state.answerId,
+        questions : state.questions
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onClickChangeQuestion : () => dispatch(changeQuestion())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
