@@ -41,4 +41,21 @@ body {
     border-radius:20px;
     cursor: pointer;
   }
+  & .question {
+    padding: 14px;
+    margin: 16px 0;
+    border-radius: 8px;
+    background-color: #e5e5e5;
+  }
+
+  & .result {
+    & h3{
+      text-align: center;
+      color: #fff;
+      font-size: 30px;
+    }
+    & .question-result {
+      width: 350px;
+    }
+  }
 }

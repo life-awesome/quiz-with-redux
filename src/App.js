@@ -2,18 +2,20 @@ import React from "react";
 import {connect} from "react-redux";
 import {changeQuestion} from "./actions/change-question";
 import Quiz from "./Quiz/Quiz";
+import Endquiz from "./Quiz/EndQuiz/endquiz";
 
 
 const App = ({ answerId, questions, onClickChangeQuestion}) => {
     return (
         <div className="clear App flex-column">
-            <div className="count-question">
-                <p>Количество вопрос {answerId} из {questions.length}</p>
-            </div>
-            <Quiz/>
-            <div>
-                <button className="change-question" onClick={() => onClickChangeQuestion()}>Следующий вопрос</button>
-            </div>
+            {answerId - 1 < questions.length
+                ? <>
+                    <div className="count-question">
+                        <p>Количество вопрос {answerId} из {questions.length}</p>
+                    </div>
+                    <Quiz/>
+                </>
+                : <Endquiz/>}
         </div>
     )
 }
@@ -26,7 +28,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onClickChangeQuestion : () => dispatch(changeQuestion())
+
     }
 }
 

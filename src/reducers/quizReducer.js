@@ -1,4 +1,5 @@
 import {CHANGE_QUESTION} from "../actions/change-question";
+import {CHANGE_STATUS_ANSWER} from "../actions/change-status-answer";
 
 const initialState = {
     answerId: 1,
@@ -6,38 +7,56 @@ const initialState = {
         {
             id: 1,
             question: 'Как дела?',
-            rightAnswer : 3,
+            rightAnswer: 3,
+            answerUser: true,
             answers: [
                 {
-                    answer: 'Нормально'
+                    id: 1,
+                    answer: 'Нормально',
+                    statusAnswer: false
                 },
                 {
-                    answer: 'Плохо'
+                    id: 2,
+                    answer: 'Плохо',
+                    statusAnswer: false
                 },
                 {
-                    answer: 'Хорошо'
+                    id: 3,
+                    answer: 'Хорошо',
+                    statusAnswer: false
                 },
                 {
-                    answer: 'Пойдет'
+                    id: 4,
+                    answer: 'Пойдет',
+                    statusAnswer: false
                 }
             ]
         },
         {
             id: 2,
             question: 'Как настроение?',
-            rightAnswer : 1,
+            rightAnswer: 1,
+            answerUser: false,
             answers: [
                 {
-                    answer: 'Нормально'
+                    id: 1,
+                    answer: 'Нормально',
+                    statusAnswer: false
                 },
                 {
-                    answer: 'Плохо'
+                    id: 2,
+                    answer: 'Плохо',
+                    statusAnswer: false
                 },
                 {
-                    answer: 'Хорошо'
+                    id: 3,
+                    answer: 'Хорошо',
+                    statusAnswer: false
                 },
                 {
-                    answer: 'Пойдет'
+                    id: 4,
+                    answer: 'Пойдет',
+                    statusAnswer: false
                 }
             ]
         }
@@ -45,13 +64,33 @@ const initialState = {
 }
 
 
-
 export const quizReducer = (state = initialState, actions) => {
-    switch (actions.type){
+    switch (actions.type) {
         case CHANGE_QUESTION : {
             return {
                 ...state,
-                answerId: 2
+                answerId: state.answerId + 1
+            }
+        }
+        case CHANGE_STATUS_ANSWER : {
+            const arr = [...state.questions[state.answerId - 1].answers]
+            const answers = arr.map((obj, index) => {
+                if (obj.id === actions.payload.id) {
+                    obj.statusAnswer = !obj.statusAnswer
+                }
+                return obj
+            })
+
+            const arrQuestions = [...state.questions]
+            const questions = arrQuestions.map((obj, index) => {
+                if(obj.id === state.answerId) {
+                    obj.answers = answers
+                }
+                return obj
+            })
+            return {
+                ...state,
+                questions
             }
         }
         default : {
