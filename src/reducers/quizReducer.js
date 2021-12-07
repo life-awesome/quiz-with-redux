@@ -8,7 +8,7 @@ const initialState = {
             id: 1,
             question: 'Как дела?',
             rightAnswer: 3,
-            answerUser: true,
+            answerUser: undefined,
             answers: [
                 {
                     id: 1,
@@ -36,7 +36,7 @@ const initialState = {
             id: 2,
             question: 'Как настроение?',
             rightAnswer: 1,
-            answerUser: false,
+            answerUser: undefined,
             answers: [
                 {
                     id: 1,
@@ -56,6 +56,34 @@ const initialState = {
                 {
                     id: 4,
                     answer: 'Пойдет',
+                    statusAnswer: false
+                }
+            ]
+        },
+        {
+            id: 3,
+            question: 'В каком году обосновали Санкт-Петербург?',
+            rightAnswer: 3,
+            answerUser: undefined,
+            answers: [
+                {
+                    id: 1,
+                    answer: '1700',
+                    statusAnswer: false
+                },
+                {
+                    id: 2,
+                    answer: '1701',
+                    statusAnswer: false
+                },
+                {
+                    id: 3,
+                    answer: '1703',
+                    statusAnswer: false
+                },
+                {
+                    id: 4,
+                    answer: '1804',
                     statusAnswer: false
                 }
             ]
@@ -80,11 +108,11 @@ export const quizReducer = (state = initialState, actions) => {
                 }
                 return obj
             })
-
             const arrQuestions = [...state.questions]
             const questions = arrQuestions.map((obj, index) => {
                 if(obj.id === state.answerId) {
                     obj.answers = answers
+                    obj.answerUser = actions.payload.id
                 }
                 return obj
             })

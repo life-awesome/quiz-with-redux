@@ -1,11 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
-import {changeQuestion} from "./actions/change-question";
 import Quiz from "./Quiz/Quiz";
 import Endquiz from "./Quiz/EndQuiz/endquiz";
 
 
-const App = ({ answerId, questions, onClickChangeQuestion}) => {
+const App = ({ answerId, questions}) => {
     return (
         <div className="clear App flex-column">
             {answerId - 1 < questions.length
